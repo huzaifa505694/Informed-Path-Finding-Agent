@@ -1,11 +1,11 @@
 Here is a detailed and professional `README.md` file tailored specifically for your project. You can copy and paste this directly into your GitHub repository.
 
-```markdown
-# 🚀 Dynamic Path-Finding Agent
+markdown
+🚀 Dynamic Path-Finding Agent
 
 An interactive Python/Pygame visualizer for A* and Greedy Best-First Search. It features a Dynamic Mode where obstacles spawn mid-transit, forcing the AI to instantly recalculate its route. Users can draw mazes, add terrain weights, and evaluate efficiency using live metrics like execution time, nodes visited, and path cost.
 
-## ✨ Key Features
+ ✨ Key Features
 
 * **Multiple Search Algorithms:** * **A* (A-Star) Search:** Implemented with an *Expanded List* strategy to guarantee optimal pathfinding using $f(n) = g(n) + h(n)$.
   * **Greedy Best-First Search (GBFS):** Implemented with a *Strict Visited List* strategy, prioritizing speed by strictly exploring nodes based on $f(n) = h(n)$.
