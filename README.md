@@ -1,90 +1,82 @@
-Here is a detailed and professional `README.md` file tailored specifically for your project. You can copy and paste this directly into your GitHub repository.
+# 🚀 Dynamic Path-Finding Agent
 
-markdown
-🚀 Dynamic Path-Finding Agent
+An advanced, interactive Artificial Intelligence visualization tool built in Python using the Pygame library. This project demonstrates how autonomous agents navigate complex, grid-based environments using informed search algorithms.
 
-An interactive Python/Pygame visualizer for A* and Greedy Best-First Search. It features a Dynamic Mode where obstacles spawn mid-transit, forcing the AI to instantly recalculate its route. Users can draw mazes, add terrain weights, and evaluate efficiency using live metrics like execution time, nodes visited, and path cost.
+Unlike standard visualizers that only solve static mazes, this agent features a **Dynamic Simulation Mode** where obstacles generate in real-time, forcing the AI to detect collisions and autonomously recalculate its optimal path mid-transit.
 
- ✨ Key Features
+---
 
-* **Multiple Search Algorithms:** * **A* (A-Star) Search:** Implemented with an *Expanded List* strategy to guarantee optimal pathfinding using $f(n) = g(n) + h(n)$.
-  * **Greedy Best-First Search (GBFS):** Implemented with a *Strict Visited List* strategy, prioritizing speed by strictly exploring nodes based on $f(n) = h(n)$.
-* **Heuristic Functions:** Toggle between **Manhattan** and **Euclidean** distance calculations in real-time.
-* **Dynamic Simulation Mode:** Watch the agent traverse the grid step-by-step. In Dynamic Mode, random obstacles (walls and heavy terrain) spawn while the agent is moving. If the path is blocked, the agent autonomously recalculates a new optimal route from its current position.
-* **Interactive Environment:** A sleek, "Midnight-themed" UI allows you to draw walls, place heavy terrain (weights cost 5x normal movement), reposition Start/Goal nodes, or instantly generate a 30% density maze.
-* **Real-Time Metrics:** Live dashboard tracking:
-  * **Visited Nodes:** To evaluate memory usage and algorithm efficiency.
-  * **Path Cost:** To verify the optimality of the chosen route.
-  * **Execution Time (ms):** To compare computational speed.
+## 🧠 Core Search Algorithms
 
-## 🛠️ Installation & Setup
+This tool allows you to compare two fundamental AI search strategies side-by-side. They are implemented strictly according to theoretical AI principles to highlight their differences in memory management and optimality:
 
-This project requires **Python 3.x** and the **Pygame** library.
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/your-username/dynamic-path-finding-agent.git](https://github.com/your-username/dynamic-path-finding-agent.git)
-   cd dynamic-path-finding-agent
-
-```
-
-2. 
-**Install the required dependencies**:
+* **A* (A-Star) Search (Optimal):**
+* **Evaluation Function:** Uses `f(n) = g(n) + h(n)` (combining the exact cost to reach the node `g(n)` with the estimated cost to the goal `h(n)`).
+* **Memory Strategy (Expanded List):** A* tracks paths dynamically and is allowed to "re-open" previously visited nodes if it discovers a cheaper path to reach them. This guarantees the mathematically shortest route.
 
 
-```bash
+* **Greedy Best-First Search / GBFS (Sub-optimal, but fast):**
+* **Evaluation Function:** Uses strictly `f(n) = h(n)` (ignoring the travel cost entirely and only looking at the estimated distance to the goal).
+* **Memory Strategy (Strict Visited List):** GBFS prioritizes speed and memory efficiency. Once it explores a node, it adds it to a strict "Closed Set" and will never re-evaluate it, even if a better path is possible.
+
+
+
+## 📐 Heuristic Functions
+
+Users can toggle between two distance estimation formulas in real-time to see how they affect the search frontier:
+
+* **Manhattan Distance:** Calculates the distance based strictly on horizontal and vertical grid movements `(|x1 - x2| + |y1 - y2|)` without cutting corners.
+* **Euclidean Distance:** Calculates the direct, straight-line "as the crow flies" distance between the current node and the goal using the Pythagorean theorem.
+
+## ⚙️ Key Features & Simulation Modes
+
+* **Dynamic Re-planning:** When the simulation is set to `DYNAMIC`, the agent physically traverses the grid. Every few seconds, random obstacles spawn. If an obstacle spawns directly on the agent's planned route, the agent halts, detects the blockage, and instantly calculates a new path from its exact current location.
+* **Weighted Terrain:** Not all paths are equal. Alongside impenetrable walls, users can place "Weights" (Purple nodes). Weighted nodes simulate rough terrain (like mud or hills) and cost 5x more energy to traverse than an empty cell.
+* **Instant Maze Generation:** A single click wipes the board and generates a complex, randomized maze with a 30% obstacle density for quick testing.
+* **Cyber-Midnight UI:** A sleek, dark-mode user interface with glowing neon accents, logically organized into Algorithm, Heuristic, Simulation, and Placement panels.
+
+## 🎮 Interactive Controls
+
+### Mouse Interactions
+
+* **Left-Click:** Draw on the grid based on your active selection in the `PLACEMENT` panel (Draw Walls, Draw Weights, Move Start Node, Move Goal Node).
+* **Right-Click:** Erase any wall, weight, or search path from a cell, returning it to an empty state.
+
+### Dashboard Operations
+
+* **ALGORITHM:** Toggle between `A-STAR` and `GREEDY`.
+* **HEURISTIC:** Toggle between `MANHATTAN` and `EUCLIDEAN`.
+* **SIMULATION:**
+* `STATIC`: The algorithm instantly calculates and displays the final path and frontier visually.
+* `DYNAMIC`: The agent moves step-by-step. Random obstacles spawn automatically, and the agent reacts in real-time.
+
+
+* **EXECUTION:**
+* `START AGENT`: Triggers the selected algorithm and begins the search/movement.
+* `GENERATE MAZE`: Instantly builds a random obstacle course.
+* `RESET SYSTEM`: Wipes the entire grid clean, leaving only the Start and Goal nodes.
+
+
+
+## 📊 Real-Time Metrics Dashboard
+
+Located at the bottom of the sidebar, the metrics panel provides empirical data to help you compare algorithms:
+
+* **Visited Nodes:** The total number of states the algorithm had to explore before finding the goal. (A* typically visits more nodes than GBFS).
+* **Path Cost:** The mathematical weight of the final path. (A* guarantees the lowest possible cost; GBFS does not).
+* **Execution Time:** The computational time required to find the solution, measured in milliseconds.
+
+## 💻 Installation and Setup
+
+To run this project locally on your machine, you will need **Python 3.x** installed.
+
+**1. Clone the repository**
+git clone [https://github.com/huzaifa505694/Informed-Path-Finding-Agent/tree/main](https://www.google.com/search?q=https://github.com/your-username/dynamic-path-finding-agent.git)
+cd dynamic-path-finding-agent
+
+**2. Install Dependencies**
+This project relies on the Pygame library for rendering.
 pip install pygame
 
-```
-
-
-3. 
-**Run the application**:
-
-
-```bash
+**3. Run the Application**
 python main.py
-
-```
-
-
-
-## 🎮 How to Use (Controls)
-
-### Grid Interaction
-
-* **Left-Click:** Place a Wall, Weight, Start Node, or Goal Node on the grid (depending on the currently selected placement tool in the sidebar).
-* **Right-Click:** Erase a node (turns it back into an empty, traversable cell).
-
-### Sidebar Dashboard
-
-* **ALGORITHM:** Choose between `A-STAR` and `GREEDY`.
-* **HEURISTIC:** Choose between `MANHATTAN` and `EUCLIDEAN` distance.
-* **SIMULATION:** * `STATIC`: Calculates and shows the path instantly.
-* `DYNAMIC`: Agent physically moves along the path; new random obstacles spawn every 2 seconds.
-
-
-* **PLACEMENT:** Select what your left-click will draw (`WALLS`, `WEIGHTS`, `START POS`, `GOAL POS`).
-* **EXECUTION:**
-* `START AGENT`: Begins the search and visualization.
-* `GENERATE MAZE`: Wipes the grid and creates a random maze (30% wall density).
-* `RESET SYSTEM`: Clears all walls, weights, and paths, keeping only the Start and Goal nodes.
-
-
-
-## 🧠 Architectural Overview
-
-The code is highly modular, split into logical components:
-
-1. **Node Class:** Manages individual grid cells, their state (color/type), weight, and drawing logic.
-2. **Heuristics & Search Logic:** Pure algorithmic implementations separating the expanded list logic of A* and the strict visited list logic of GBFS.
-3. **UI Components:** Custom `NeonButton` class to handle hover states, glow effects, and clicks.
-4. **Main Loop:** Handles Pygame events, mouse tracking, timing for dynamic mode, and grid rendering.
-
-## 📝 License
-
-This project is open-source and free to use for educational purposes.
-
-```
-
-```
